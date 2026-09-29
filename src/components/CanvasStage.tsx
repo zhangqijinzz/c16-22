@@ -1,5 +1,6 @@
 import { useRef, useState, type PointerEvent } from 'react';
 import type { CropVariant, GuideKey, ImageAsset } from '../model';
+import { GuideOverlay } from './GuideOverlay';
 
 interface CanvasStageProps {
   image: ImageAsset;
@@ -54,10 +55,7 @@ export function CanvasStage({ image, guides, crop, subject, onSubject, onMoveCro
       <div className="canvas-stage" ref={stageRef} style={{ aspectRatio: `${image.width} / ${image.height}` }} onPointerDown={clickStage}>
         <img src={image.src} alt={image.name} draggable={false} />
         <div className="image-wash" />
-        {guides.thirds && <div className="guide thirds-guide"><i /><i /><b /><b /></div>}
-        {guides.center && <div className="guide center-guide"><i /><i /></div>}
-        {guides.diagonal && <div className="guide diagonal-guide"><i /><i /></div>}
-        {guides.golden && <div className="guide golden-guide"><i /><i /></div>}
+        <GuideOverlay guides={guides} />
         {subject && <div className="subject-pin" style={{ left: `${subject.x * 100}%`, top: `${subject.y * 100}%` }}><span>主体</span></div>}
         <div className={`crop-frame ${dragging ? 'dragging' : ''}`} style={{ left: `${crop.x * 100}%`, top: `${crop.y * 100}%`, width: `${crop.width * 100}%`, height: `${crop.height * 100}%` }} onPointerDown={(event) => startDrag(event, 'move')} onPointerMove={moveDrag} onPointerUp={stopDrag} onPointerCancel={stopDrag}>
           <div className="crop-label">{crop.ratio === 'free' ? '自由裁切' : crop.ratio}</div>
