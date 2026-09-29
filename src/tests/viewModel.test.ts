@@ -49,4 +49,18 @@ describe('FrameSenseViewModel', () => {
     expect(vm.getSnapshot().document.image).not.toBeNull();
     expect(vm.getSnapshot().error).toContain('本地保存失败');
   });
+
+  it('opens and closes compare without touching the workbench document', () => {
+    vm.loadDemo();
+    vm.toggleGuide('golden');
+    vm.markSubject(0.3, 0.4);
+    vm.saveVariant();
+    const before = vm.getSnapshot().document;
+    vm.toggleCompare();
+    expect(vm.getSnapshot().compareOpen).toBe(true);
+    expect(vm.getSnapshot().document).toBe(before);
+    vm.toggleCompare();
+    expect(vm.getSnapshot().compareOpen).toBe(false);
+    expect(vm.getSnapshot().document).toBe(before);
+  });
 });

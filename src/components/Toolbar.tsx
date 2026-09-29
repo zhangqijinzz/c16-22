@@ -47,7 +47,7 @@ export function Toolbar(props: ToolbarProps) {
         </div>
       </div>
 
-      <button className={`compare-button ${props.compareOpen ? 'active' : ''}`} onClick={props.onCompare}><span>◫</span> {props.compareOpen ? '返回工作台' : '打开前后对比'}</button>
+      <button className={`compare-button ${props.compareOpen ? 'active' : ''}`} onClick={props.onCompare}><span>◫</span> {props.compareOpen ? '返回工作台' : '打开方案对比'}</button>
     </aside>
   );
 }
